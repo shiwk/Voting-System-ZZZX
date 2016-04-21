@@ -41,7 +41,7 @@ class votingViewController extends Controller
     		
     	}    	
 
-    	//return view('test', ['can' => $can]);
+    	return view('welcome');
     }
 
 }

@@ -13,6 +13,8 @@
     <script src="<?php echo asset('js/jquery.min.js') ?>"></script>
     <link rel="stylesheet" href="<?php echo asset('css/bootstrap.min.css') ?>">
     <script src="<?php echo asset('js/bootstrap.min.js') ?>"></script>
+    <script src="<?php echo asset('js/jquery.validate.min.js') ?>"></script>
+    <script src="<?php echo asset('js/additional-methods.min.js') ?>"></script>
     <style type="text/css">
         .row-margin-top20 {
             margin-top: 20px;
@@ -35,6 +37,44 @@
             width: 50%;
         }
     </style>
+    <script>
+    var upto = <?php echo json_encode($data['act_info']->act_vote_upto); ?>;
+    var atleast = <?php echo json_encode($data['act_info']->act_vote_atleast); ?>;
+        $(document).ready(function () {
+            $('#voteForm').validate({
+                onsubmit: true,
+                onfocusout: false,
+                onkeyup: false,
+                onclick: false,                
+                rules: {
+                    'candidate[]': {
+                        required: true,
+                        minlength: atleast,
+                        maxlength: upto
+                    }
+                },
+                messages: {
+                    'candidate[]': {
+                        required: "您还为选择任何一项！",
+                        minlength: "请至少选择{0}项！",
+                        maxlength: "请勿选择超过{0}项！"
+                    }
+                },
+                showErrors: function(errorMap, errorList) {  
+                    var msg = "";  
+                    $.each( errorList, function(i,v){  
+                      msg += (v.message+"\r\n");  
+                    });  
+                    if(msg!="") alert(msg);  
+                },  
+                submitHandler: function (form) {
+                    form.submit();
+                    return true;
+                }
+            });
+
+        });
+    </script>
 </head>
 <body>
 <img src="<?php echo asset('images/tjuzzglzx.jpg') ?>" width="100%"/>
@@ -91,7 +131,7 @@
 </div>
 
 <div class="row-margin-top20">
-    <form method="POST" action="voteProcessing/{{{ $data['act_info']->act_id }}}" name="voteForm">
+    <form method="POST" action="voteProcessing/{{{ $data['act_info']->act_id }}}" name="voteForm" id="voteForm">
         @foreach ($data['can_info'] as $candidate)
             <div style="width: 80%; margin-left: 10%; ">
                 <div class="panel panel-info">
