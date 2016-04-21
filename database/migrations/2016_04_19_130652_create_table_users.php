@@ -12,13 +12,12 @@ class CreateTableUsers extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('user_openid', 255)->unique();
-            $table->string('user_nickname', 255);
-            $table->string('user_student_id', 255);
-            $table->boolean('user_subscribe');
-        });
+        DB::statement('create table users(
+                    user_openid varchar(255) primary key,
+                    user_nickname varchar(255),
+                    user_student_id varchar(255),
+                    user_subscribe boolean
+                    );');
     }
 
     /**

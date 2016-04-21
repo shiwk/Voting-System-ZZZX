@@ -29,6 +29,7 @@ class CreateTableCandidates extends Migration
                         can_id bigint unsigned auto_increment not null,
                         act_id bigint unsigned not null,
                         can_discription blob,
+                        can_voting_number bigint unsigned default 0,
                         can_name varchar(255) not null,
                         can_image_url varchar(255),
                         can_school varchar(255),
