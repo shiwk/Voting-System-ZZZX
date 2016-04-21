@@ -13,10 +13,9 @@ class CreateTableVotes extends Migration
     public function up()
     {
         DB::statement('create table votes(
-                        user_openid varchar(255),
+                        user_openid varchar(255) references users(user_openid) on update cascade,
                         can_id bigint unsigned,
                         act_id bigint unsigned,
-                        foreign key (user_openid) references users(user_openid) on update cascade,
                         foreign key (can_id) references candidates(can_id) on update cascade,
                         foreign key (act_id) references activities(act_id) on update cascade,                                             
                         constraint primary key (user_openid, can_id, act_id)
