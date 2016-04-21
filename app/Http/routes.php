@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// function of voting view
+// @activity_id the id of the activity that we want to get
+Route::get('voting/{activity_id}', 'votingViewController@getAllInfo');
+
+Route::post('voting/voteProcessing/{activity_id}', 'votingViewController@voteProcessing');
