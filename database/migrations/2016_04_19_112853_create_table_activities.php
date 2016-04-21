@@ -14,7 +14,7 @@ class CreateTableActivities extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->bigIncrements('act_id');
-            $table->string('act_name');
+            $table->string('act_name', 255);
             $table->binary('act_discription')->nullable();
             $table->binary('act_rule')->nullable();
             $table->binary('act_prizes')->nullable();
