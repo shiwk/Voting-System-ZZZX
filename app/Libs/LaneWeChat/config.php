@@ -23,8 +23,8 @@ define('ENCODING_AES_KEY', "bkxJXKz7vZ8XRmvQNyf7xeGtynP90dME8Mt9wsqdiQH");
 /*
  * 开发者配置
  */
-define("WECHAT_APPID", 'wxf94a375be2aaf4eb');
-define("WECHAT_APPSECRET", 'b58840392d60e1bd4164ed977eb80eb9');
+define("WECHAT_APPID", 'wx6474d77d37b30db1');
+define("WECHAT_APPSECRET", '55ef75269952ac4997f293af73823781');
 
 
 ////-----引入系统所需类库-------------------
