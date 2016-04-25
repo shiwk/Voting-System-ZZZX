@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('voting/{activity_id}', 'votingViewController@getAllInfo');
 
 Route::post('voting/voteProcessing/{activity_id}', 'votingViewController@voteProcessing');
+
+Route::get('wechat.php', function(){
+	return view('wechat');
+});
