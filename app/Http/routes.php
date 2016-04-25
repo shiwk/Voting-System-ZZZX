@@ -21,6 +21,12 @@ Route::get('voting/{activity_id}', 'votingViewController@getAllInfo');
 
 Route::post('voting/voteProcessing/{activity_id}', 'votingViewController@voteProcessing');
 
+
 Route::any('wechat', function(){
 	return view('wechat');
 });
+
+Route::get('admin_login','admin_loginController@getLogin'); 
+
+Route::post('admin_login','admin_loginController@postCheck'); 
+
