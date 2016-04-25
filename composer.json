@@ -19,7 +19,8 @@
     },
     "autoload": {
         "classmap": [
-            "database"
+            "database",
+            "app/Libs/LaneWeChat"
         ],
         "psr-4": {
             "App\\": "app/"

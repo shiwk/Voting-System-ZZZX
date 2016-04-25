@@ -13,12 +13,17 @@ class votingViewController extends Controller
 	// function to get all the information we need by activity id
 	// @activity_id the id of the specific activity
     public function getAllInfo($activity_id){
-    	$act_info = Activity::find($activity_id);
-    	$can_info = Candidate::where('act_id', '=', $activity_id)->get();
+        if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
+        	$act_info = Activity::find($activity_id);
+        	$can_info = Candidate::where('act_id', '=', $activity_id)->get();
 
-    	$data = [ 'act_info' => $act_info, 'can_info' => $can_info ];
+        	$data = [ 'act_info' => $act_info, 'can_info' => $can_info ];
 
-    	return view('voting', ['data' => $data]);
+        	return view('voting', ['data' => $data]);
+        }
+        else{
+            return view('wxPlz');
+        }
     }
 
     // function to store voting numbers into the database
