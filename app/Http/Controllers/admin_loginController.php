@@ -19,7 +19,7 @@ class admin_loginController extends Controller
     	$admin_password = $request->input('form-password');
     	$user = Admin::where('admin_username',$admin_username)->where('admin_password',$admin_password)->get();
     	if($user){
-    		return view('welcome');
+    		return view('back_end/template');
     	}
     	else{
     		
