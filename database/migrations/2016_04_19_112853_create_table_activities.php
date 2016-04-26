@@ -23,7 +23,6 @@ class CreateTableActivities extends Migration
             $table->integer('act_vote_atleast');
             $table->dateTime('act_start_time');
             $table->dateTime('act_stop_time');
-            $table->integer('act_candidates_num');
             $table->bigInteger('act_view_statistics')->nullable();
         });
     }
