@@ -55,7 +55,7 @@
                 },
                 messages: {
                     'candidate[]': {
-                        required: "您还为选择任何一项！",
+                        required: "您还未选择任何一项！",
                         minlength: "请至少选择{0}项！",
                         maxlength: "请勿选择超过{0}项！"
                     }
