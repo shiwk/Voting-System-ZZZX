@@ -24,7 +24,7 @@ class CreateTableActivities extends Migration
             $table->dateTime('act_start_time');
             $table->dateTime('act_stop_time');
             $table->integer('act_candidates_num');
-            $table->bigint('act_view_statistics')->nullable();
+            $table->bigInteger('act_view_statistics')->nullable();
         });
     }
 
