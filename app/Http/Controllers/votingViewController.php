@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Activity as Activity;
 use App\Candidate as Candidate;
+use App\AccessToken as Access_Token;
 use LaneWeChat\Core\WeChatOAuth;
 use LaneWeChat\Core\UserManage;
 
@@ -15,7 +16,7 @@ include 'lanewechat.php';
 class votingViewController extends Controller
 {
 	// function to get all the information we need by activity id
-	// @activity_id the id of the specific activity
+	// @ $activity_id the id of the specific activity
     public function getAllInfo($activity_id){
         //if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
 
@@ -25,10 +26,9 @@ class votingViewController extends Controller
 
         	$act_info = Activity::find($activity_id);
         	$can_info = Candidate::where('act_id', '=', $activity_id)->get();
+        	$data = [ 'act_info' => $act_info, 'can_info' => $can_info, 'user_info' => $userInfo];
 
-        	$data = [ 'act_info' => $act_info, 'can_info' => $can_info, 'code' => $code, 'openid' => $openId, 'user_info' => $userInfo];
-
-        	return view('test', ['data' => $data]);
+        	return view('voting', ['data' => $data]);
         // }
         // else{
         //     return view('wxPlz');
@@ -36,7 +36,7 @@ class votingViewController extends Controller
     }
 
     // function to store voting numbers into the database
-    // @activity_id the id of activity that's being processed
+    // @ $activity_id the id of activity that's being processed
     public function voteProcessing($activity_id){
     	if(isset($_POST['candidate'])){
     		$cans_selected = $_POST['candidate'];

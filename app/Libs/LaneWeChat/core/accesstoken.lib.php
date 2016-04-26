@@ -1,6 +1,6 @@
 <?php
 namespace LaneWeChat\Core;
-use App\AccessToken as AccessToken;
+use App\AccessToken as Access_Token;
 /**
  * 微信Access_Token的获取与过期检查
  * Created by Lane.
@@ -45,8 +45,9 @@ class AccessToken{
         // $f = fopen('access_token', 'w+');
         // fwrite($f, $accessTokenJson);
         // fclose($f);
-        // return $accessToken;
-        AccessToken::where('accesstoken_id', 1)->update(['access_token' => $accessTokenJson]);
+        Access_Token::where('accesstoken_id', 1)->update(['access_token' => $accessTokenJson]);
+        return $accessToken;
+
     }
 
     /**
@@ -57,12 +58,10 @@ class AccessToken{
     private static function _checkAccessToken(){
         //获取access_token。是上面的获取方法获取到后存起来的。
         //$accessToken = YourDatabase::get('access_token');
-        $getToken = AccessToken::where('accesstoken_id', 1)->get();
-        $accessToken = $getToken->access_token;
-        $data = file_get_contents('access_token');
-        $accessToken['value'] = $data;
-        if(!empty($accessToken['value'])){
-            $accessToken = json_decode($accessToken['value'], true);
+        $getToken = Access_Token::where('accesstoken_id', '=', 1)->get();
+        $accessTokenJson = json_decode($getToken[0]->access_token);
+        if(!empty($accessToken)){
+            $accessToken = json_decode($accessToken, true);
             if(time() - $accessToken['time'] < $accessToken['expires_in']-10){
                 return $accessToken;
             }
