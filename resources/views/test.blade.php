@@ -5,7 +5,7 @@
     </head>
     <body>
 	    <pre>
-	        {{ $can[0]->can_discription }}
+	        {{ var_dump($data['user_info']) }}
 	    </pre>
     </body>
 </html>

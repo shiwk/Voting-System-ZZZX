@@ -7,23 +7,32 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Activity as Activity;
 use App\Candidate as Candidate;
+use LaneWeChat\Core\WeChatOAuth;
+use LaneWeChat\Core\UserManage;
+
+include 'lanewechat.php';
 
 class votingViewController extends Controller
 {
 	// function to get all the information we need by activity id
 	// @activity_id the id of the specific activity
     public function getAllInfo($activity_id){
-        if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
+        //if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
+
+            $code = $_GET['code'];
+            $openId = WeChatOAuth::getAccessTokenAndOpenId($code);
+            $userInfo = UserManage::getUserInfo($openId['openid']);
+
         	$act_info = Activity::find($activity_id);
         	$can_info = Candidate::where('act_id', '=', $activity_id)->get();
 
-        	$data = [ 'act_info' => $act_info, 'can_info' => $can_info ];
+        	$data = [ 'act_info' => $act_info, 'can_info' => $can_info, 'code' => $code, 'openid' => $openId, 'user_info' => $userInfo];
 
-        	return view('voting', ['data' => $data]);
-        }
-        else{
-            return view('wxPlz');
-        }
+        	return view('test', ['data' => $data]);
+        // }
+        // else{
+        //     return view('wxPlz');
+        // }
     }
 
     // function to store voting numbers into the database

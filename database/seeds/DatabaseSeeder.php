@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'act_vote_upto' => 3,
             'act_vote_atleast' => 2,
             'act_start_time' => '2016-04-20-14-25-30',
-            'act_stop_time' => '2016-04.30-14-25-30',
+            'act_stop_time' => '2016-04-30-14-25-30',
             'act_view_statistics' => 0,
         ]);
 
@@ -61,6 +61,11 @@ class DatabaseSeeder extends Seeder
         	'act_id' => 1,
         	'can_name' => '张洁',
         	'can_discription' => '这是张洁的自我介绍，巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉。',
+        ]);
+
+        DB::table('accesstoken')->insert([
+            'accesstoken_id' => 1,
+            'access_token' => '',
         ]);                                                      
     }
 }
