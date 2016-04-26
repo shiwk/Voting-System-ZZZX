@@ -18,7 +18,7 @@ class CreateTableActivities extends Migration
             $table->binary('act_discription')->nullable();
             $table->binary('act_rule')->nullable();
             $table->binary('act_prizes')->nullable();
-            $table->int('act_candidate_num');
+            $table->integer('act_candidate_num');
             $table->integer('act_vote_upto');
             $table->integer('act_vote_atleast');
             $table->dateTime('act_start_time');
