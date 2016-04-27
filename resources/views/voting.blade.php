@@ -96,6 +96,12 @@
     </div>
 </div>
 
+@if ($data['user_info']['subscribe'] == 0)
+    <div class="panel panel-danger row-margin-top20" style="width: 80%; margin-left: 10%;">
+        <div class="panel-heading">请先关注再投票！</div>
+    </div>
+@endif
+
 <div id="regulations" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -167,12 +173,17 @@
                 </div>            
             </div>
         @endforeach
-        <input type="hidden" name="_token" value="{{ csrf_token() }}" />  
-        <input type="submit" class="btn btn-primary center-block" value="确认"/>
+        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+        @if ($data['user_info']['subscribe'] == 1)
+            <input type="submit" class="btn btn-primary active center-block" value="确认"/>
+        @elseif ($data['user_info']['subscribe'] == 0)
+            <div class="panel panel-danger" style="width: 80%; margin-left: 10%;">
+                <div class="panel-heading">请先关注再投票！</div>
+            </div>
+            <input type="submit" class="btn btn-primary disabled center-block" value="确认"/>
+        @endif
     </form>
 </div>
-
-
 
 <img style="margin-top: 2rem" src="<?php echo asset('images/tjuzzglzx.jpg') ?>" width="100%" alt="image"/>
 </body>
