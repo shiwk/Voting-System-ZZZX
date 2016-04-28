@@ -17,13 +17,13 @@ class admin_loginController extends Controller
     public function postCheck(Request $request){
     	$admin_username = $request->input('form-username');
     	$admin_password = $request->input('form-password');
-    	$user = Admin::where('admin_username',$admin_username)->where('admin_password',$admin_password)->get();
-    	if($user){
-    		return view('back_end/template');
+    	$user = Admin::where(['admin_username'=>$admin_username,'admin_password'=>$admin_password])->first();
+        
+        if($user){    
+            return view('back_end/template');      		
     	}
     	else{
-    		
+            return view('back_end/login');             
     	}
-    	
     }
 }
