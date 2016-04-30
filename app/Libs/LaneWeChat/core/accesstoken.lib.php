@@ -59,7 +59,7 @@ class AccessToken{
         //获取access_token。是上面的获取方法获取到后存起来的。
         //$accessToken = YourDatabase::get('access_token');
         $getToken = Access_Token::where('accesstoken_id', '=', 1)->get();
-        $accessTokenJson = json_decode($getToken[0]->access_token);
+        $accessToken = $getToken[0]->access_token;
         if(!empty($accessToken)){
             $accessToken = json_decode($accessToken, true);
             if(time() - $accessToken['time'] < $accessToken['expires_in']-10){
