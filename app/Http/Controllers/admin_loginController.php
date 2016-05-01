@@ -20,7 +20,7 @@ class admin_loginController extends Controller
     	$user = Admin::where(['admin_username'=>$admin_username,'admin_password'=>$admin_password])->first();
         
         if($user){    
-            return view('back_end/template');      		
+            return view('back_end/new_activity');      		
     	}
     	else{
             return view('back_end/login');             
