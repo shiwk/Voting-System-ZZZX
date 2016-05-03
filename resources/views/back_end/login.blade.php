@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="form-bottom">
-                                <form  action="admin_login" method="post" class="login-form">
+                                <form  action="index" method="post" class="login-form">
                                     <div class="form-group">
                                         <label class="sr-only" for="form-username">Username</label>
                                         <input type="text" name="form-username" placeholder="用户名..." class="form-username form-control" id="form-username">

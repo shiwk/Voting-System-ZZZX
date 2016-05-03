@@ -37,5 +37,4 @@ Route::any('wechat', function(){
 
 Route::get('admin_login','admin_loginController@getLogin');
 
-Route::post('admin_login','admin_loginController@postCheck');
-
+Route::post('index','admin_loginController@postCheck'); 
