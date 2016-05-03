@@ -15,8 +15,11 @@ include 'lanewechat.php';
 
 class votingViewController extends Controller
 {
-	// function to get all the information we need by activity id
-	// @ $activity_id the id of the specific activity
+	/**
+     * function to get all the information we need by activity id
+     * @author tevenfeng
+	 * @param $activity_id the id of the specific activity
+     */
     public function getAllInfo($activity_id){
         //if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
 
@@ -35,8 +38,11 @@ class votingViewController extends Controller
         // }
     }
 
-    // function to store voting numbers into the database
-    // @ $activity_id the id of activity that's being processed
+    /**
+     * function to store voting numbers into the database
+     * @author tevenfeng
+     * @param $activity_id the id of activity that's being processed
+     */
     public function voteProcessing($activity_id){
     	if(isset($_POST['candidate'])){
     		$cans_selected = $_POST['candidate'];
@@ -49,11 +55,11 @@ class votingViewController extends Controller
 	    		$vote = $can->can_voting_number + 1;
 	    		Candidate::where('act_id', $activity_id)
 	    					->where('can_id', $candidate_selected)
-	    					->update(['can_voting_number' => $vote]); 					
+	    					->update(['can_voting_number' => $vote]);
 	    	}
     	}catch(Exception $e){
-    		
-    	}    	
+
+    	}
 
     	return view('welcome');
     }
