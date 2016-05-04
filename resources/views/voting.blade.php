@@ -45,7 +45,7 @@
                 onsubmit: true,
                 onfocusout: false,
                 onkeyup: false,
-                onclick: false,                
+                onclick: false,
                 rules: {
                     'candidate[]': {
                         required: true,
@@ -60,13 +60,13 @@
                         maxlength: "请勿选择超过{0}项！"
                     }
                 },
-                showErrors: function(errorMap, errorList) {  
-                    var msg = "";  
-                    $.each( errorList, function(i,v){  
-                      msg += (v.message+"\r\n");  
-                    });  
-                    if(msg!="") alert(msg);  
-                },  
+                showErrors: function(errorMap, errorList) {
+                    var msg = "";
+                    $.each( errorList, function(i,v){
+                      msg += (v.message+"\r\n");
+                    });
+                    if(msg!="") alert(msg);
+                },
                 submitHandler: function (form) {
                     form.submit();
                     return true;
@@ -99,6 +99,12 @@
 @if ($data['user_info']['subscribe'] == 0)
     <div class="panel panel-danger row-margin-top20" style="width: 80%; margin-left: 10%;">
         <div class="panel-heading">请先关注再投票！</div>
+    </div>
+@endif
+
+@if ($data['user_info']['voted'] == 1)
+    <div class="panel panel-danger row-margin-top20" style="width: 80%; margin-left: 10%;">
+        <div class="panel-heading">您已经参与过此次投票了！</div>
     </div>
 @endif
 
@@ -150,10 +156,10 @@
                                 <p style="margin-top: 1rem;">已获得票数：{{ $candidate->can_voting_number }}</p>
                             </td>
                             <td class="tableWidth" data-toggle="modal" data-target="#introduction{{ $candidate->can_id }}">
-                                <img src="<?php echo asset('images/back.jpg') ?>" class="img-circle" alt="HeadImage" width="100" height="100">                            
+                                <img src="<?php echo asset('images/back.jpg') ?>" class="img-circle" alt="HeadImage" width="100" height="100">
                             </td>
                         </tr></table>
-                    </div>               
+                    </div>
                 </div>
                 <div id="introduction{{ $candidate->can_id }}" class="modal fade" role="dialog">
                     <div class="modal-dialog">
@@ -170,12 +176,20 @@
                             </div>
                         </div>
                     </div>
-                </div>            
+                </div>
             </div>
         @endforeach
+        <input type="hidden" name="user_openid" value="{{ $data['user_info']['openid'] }}" />
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         @if ($data['user_info']['subscribe'] == 1)
-            <input type="submit" class="btn btn-primary active center-block" value="确认"/>
+            @if ($data['user_info']['voted'] == 0)
+                <input type="submit" class="btn btn-primary active center-block" value="确认"/>
+            @else
+                <div class="panel panel-danger" style="width: 80%; margin-left: 10%;">
+                    <div class="panel-heading">您已经参与过此次投票了！</div>
+                </div>
+                <input type="submit" class="btn btn-primary disabled center-block" value="确认"/>
+            @endif
         @elseif ($data['user_info']['subscribe'] == 0)
             <div class="panel panel-danger" style="width: 80%; margin-left: 10%;">
                 <div class="panel-heading">请先关注再投票！</div>
