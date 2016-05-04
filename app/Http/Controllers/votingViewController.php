@@ -30,9 +30,13 @@ class votingViewController extends Controller
             $openId = WeChatOAuth::getAccessTokenAndOpenId($code);
 
             try{
-                $user_in_DB = User::where('user_openid', '=', $openId['openid'])->firstOrFail();
-                $userInfo['subscribe'] = $user_in_DB->user_subscribe;
-                $userInfo['openid'] = $openId['openid'];
+                $user_in_DB = User::where('user_openid', '=', $openId['openid'])->get();
+                if (!$user_in_DB->isEmpty()){
+                    $userInfo['subscribe'] = $user_in_DB[0]->user_subscribe;
+                    $userInfo['openid'] = $openId['openid'];
+                }else{
+                    $userInfo['subscribe'] = 0;
+                }
             }catch(ModelNotFoundException $e){
                 $userInfo['subscribe'] = 0;
             }
@@ -40,8 +44,13 @@ class votingViewController extends Controller
             try{
                 $has_user_voted = Vote::where('user_openid', '=', $openId['openid'])
                                       ->where('act_id', '=', $activity_id)
-                                      ->firstOrFail();
-                $userInfo['voted'] = 1;
+                                      ->get();
+                if(!$has_user_voted->isEmpty()){
+                    $userInfo['voted'] = 1;
+                }
+                else{
+                    $userInfo['voted'] = 0;
+                }
             }catch(ModelNotFoundException $e){
                 $userInfo['voted'] = 0;
             }
