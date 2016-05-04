@@ -10,6 +10,10 @@ namespace LaneWeChat\Core;
  * Website: http://www.lanecn.com
  */
 
+use LaneWeChat\Core\UserManage;
+use App\User as User;
+use Illuminate\Database\Eloquent\ModelNotFoundException as ModelNotFoundException;
+
 class WechatRequest{
     /**
      * @descrpition 分发请求
@@ -207,7 +211,20 @@ class WechatRequest{
      * @return array
      */
     public static function eventSubscribe(&$request){
-        $content = '欢迎您关注我们的微信，将为您竭诚服务';
+        $content = '欢迎您关注我们的官方微信，将为您竭诚服务~';
+
+        try{
+            $user_in_DB = User::where('user_openid', '=', $request['fromusername'])->firstOrFail();
+            User::where('user_openid', '=', $request['fromusername'])->update(['user_subscribe' => 1]);
+        }catch(ModelNotFoundException $e){
+            $fan_info = UserManage::getUserInfo($request['fromusername']);
+            $user = new User;
+            $user->user_openid = $fan_info['openid'];
+            $user->user_subscribe = $fan_info['subscribe'];
+            $user->user_nickname = $fan_info['nickname'];
+            $user->save();
+        }
+
         return ResponsePassive::text($request['fromusername'], $request['tousername'], $content);
     }
 
@@ -218,6 +235,9 @@ class WechatRequest{
      */
     public static function eventUnsubscribe(&$request){
         $content = '为什么不理我了？';
+
+        User::where('user_openid', '=', $request['fromusername'])->update(['user_subscribe' => 0]);
+
         return ResponsePassive::text($request['fromusername'], $request['tousername'], $content);
     }
 
@@ -227,7 +247,20 @@ class WechatRequest{
      * @return array
      */
     public static function eventQrsceneSubscribe(&$request){
-        $content = '欢迎您关注我们的微信，将为您竭诚服务';
+        $content = '欢迎您关注我们的官方微信，将为您竭诚服务~';
+
+        try{
+            $user_in_DB = User::where('user_openid', '=', $request['fromusername'])->firstOrFail();
+            User::where('user_openid', '=', $request['fromusername'])->update(['user_subscribe' => 1]);
+        }catch(ModelNotFoundException $e){
+            $fan_info = UserManage::getUserInfo($request['fromusername']);
+            $user = new User;
+            $user->user_openid = $fan_info['openid'];
+            $user->user_subscribe = $fan_info['subscribe'];
+            $user->user_nickname = $fan_info['nickname'];
+            $user->save();
+        }
+
         return ResponsePassive::text($request['fromusername'], $request['tousername'], $content);
     }
 
@@ -237,7 +270,7 @@ class WechatRequest{
      * @return array
      */
     public static function eventScan(&$request){
-        $content = '您已经关注了哦～';
+        $content = '你好呀，你已经关注我了哦～';
         return ResponsePassive::text($request['fromusername'], $request['tousername'], $content);
     }
 

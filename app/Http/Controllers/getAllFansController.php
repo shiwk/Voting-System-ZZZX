@@ -13,6 +13,10 @@ include 'lanewechat.php';
 
 class getAllFansController extends Controller
 {
+    /**
+     * function to sync fans list
+     * @author tevenfeng
+     */
     public function getAllFans(){
     	$fans = UserManage::getFansList();
     	$total = $fans['total'];
