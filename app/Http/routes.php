@@ -40,3 +40,5 @@ Route::get('admin_login','admin_loginController@getLogin');
 Route::post('index','admin_loginController@postCheck'); 
 
 Route::post('activity','activityController@new_activity');
+
+Route::post('show_activity','activityController@save_activity');
