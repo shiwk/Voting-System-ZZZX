@@ -39,14 +39,29 @@ class activityController extends Controller
 
     	for($i = 0; $i < $input['act_candidate_num']; $i++){
 
+            $file = $input['can_image_' . $i];
+
+            $clientName = $file -> getClientOriginalName();
+
+            $extension = $file -> getClientOriginalExtension(); 
+
+            $newName = md5(date('ymdhis').$clientName).".". $extension;
+
+            $path = $file -> move('uploads',$newName);
+
     		Candidate::insert([ 'act_id' => $activity->act_id, 'can_name' => $input['can_name_' . $i],
 
     						'can_student_id' => $input['can_student_id_' . $i],'can_school' => $input['can_school_' . $i],
 
-    						'can_discription' => $input['can_discription_' . $i] ]);
+    						'can_discription' => $input['can_discription_' . $i],'can_image_url' =>  $_SERVER['DOCUMENT_ROOT'] . '\\' . $path]);
 
     	}
 
-    	return view('back_end/show_activity',['input' => $input]);
+        $pat = $_SERVER['DOCUMENT_ROOT'] . '\\' . $path;
+
+        echo $pat;
+
+        echo "<img src=\"{{asset($path)}}\" />";
+    	//return view('back_end/show_activity',['input' => $input]);
     }
 }
