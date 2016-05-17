@@ -53,15 +53,10 @@ class activityController extends Controller
 
     						'can_student_id' => $input['can_student_id_' . $i],'can_school' => $input['can_school_' . $i],
 
-    						'can_discription' => $input['can_discription_' . $i],'can_image_url' =>  $_SERVER['DOCUMENT_ROOT'] . '\\' . $path]);
+    						'can_discription' => $input['can_discription_' . $i],'can_image_url' =>  $path]);
 
     	}
 
-        $pat = $_SERVER['DOCUMENT_ROOT'] . '\\' . $path;
-
-        echo $pat;
-
-        echo "<img src=\"{{asset($path)}}\" />";
-    	//return view('back_end/show_activity',['input' => $input]);
+    	return view('back_end/show_activity',['input' => $input]);
     }
 }
